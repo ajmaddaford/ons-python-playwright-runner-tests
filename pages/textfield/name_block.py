@@ -1,14 +1,12 @@
-from playwright.sync_api import Locator
+from dataclasses import dataclass
+from typing import Final
 
 from base_pages.question_page import QuestionPage
 
-
+@dataclass()
 class NameBlockPage(QuestionPage):
-    def __init__(self, page):
-        super().__init__(page, 'name-block')
+    name: Final[str] = '#name-answer'
+    name_label: Final[str] = '[for=name-answer]'
 
-    def name(self) -> Locator:
-        return self.page.locator('#name-answer')
-
-    def name_label(self) -> Locator:
-        return self.page.locator('[for=name-answer]')
+    def __init__(self):
+        super().__init__('name-block')

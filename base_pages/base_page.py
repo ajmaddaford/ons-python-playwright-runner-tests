@@ -1,10 +1,10 @@
-from playwright.sync_api import Locator
+from dataclasses import dataclass
+from typing import Final
 
 
+@dataclass()
 class BasePage:
-    def __init__(self, page, page_name):
-        self.page = page
-        self.page_name: str = page_name
+    submit: Final[str] = '[data-qa="btn-submit"]'
 
-    def submit(self) -> Locator:
-        return self.page.locator('[data-qa="btn-submit"]')
+    def __init__(self, page_name):
+        self.page_name = page_name

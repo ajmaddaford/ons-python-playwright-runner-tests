@@ -11,9 +11,8 @@ class TestTextfield:
         A user should be able to click the label of the textfield to focus
         """
         open_questionnaire("test_textfield")
-        name_block_page = NameBlockPage(page)
-        name_block_page.name_label().click()
-        expect(name_block_page.name()).to_be_focused()
+        page.locator(NameBlockPage.name_label).click()
+        expect(page.locator(NameBlockPage.name)).to_be_focused()
 
     def test_textfield_has_value_when_returning(self, page: Page, open_questionnaire):
         """
@@ -23,13 +22,10 @@ class TestTextfield:
         """
         open_questionnaire("test_textfield")
 
-        name_block_page = NameBlockPage(page)
-        name_block_page.name().fill("'Twenty><&Five'")
-        name_block_page.submit().click()
+        page.locator(NameBlockPage.name).fill("'Twenty><&Five'")
+        page.locator(NameBlockPage.submit).click()
+        assert SubmitPage().page_name in page.url
+        expect(page.locator(SubmitPage.name_answer)).to_have_text("'Twenty><&Five'")
+        page.locator(SubmitPage.name_answer_edit).click()
 
-        submit_page = SubmitPage(page)
-        assert submit_page.page_name in submit_page.page.url
-        expect(submit_page.name_answer()).to_have_text("'Twenty><&Five'")
-        submit_page.name_answer_edit().click()
-
-        expect(name_block_page.name()).to_have_value("'Twenty><&Five'")
+        expect(page.locator(NameBlockPage.name)).to_have_value("'Twenty><&Five'")
