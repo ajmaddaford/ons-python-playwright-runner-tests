@@ -41,7 +41,7 @@ PAYLOAD_V2 = {
         "receipting_keys": ["qid"],
     },
     "collection_exercise_sid": "789",
-    "response_id": "1234567890123456",
+    "response_id": str(uuid4()),
     "language_code": "en",
     "roles": [],
     "account_service_url": ACCOUNT_SERVICE_URL,
